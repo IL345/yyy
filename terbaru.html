@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InsightWave</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+             background-color: #ffffff; /* Warna terang */
+            color: #000000; /* Teks hitam */
+            transition: background-color 0.3s, color 0.3s;
+        }
+      body.dark {
+            background-color: black; /* Warna gelap */
+            color: #ffffff; /* Teks putih */
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff;
+            padding: 1em;
+            color: white;
+             position:sticky;
+            top:0;
+            z-index:1000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .menu-icon {
+            cursor: pointer;
+            font-size: 1.5em;
+            color: black;
+        }
+
+        nav {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 60px;
+            left: 0;
+            background-color: #333;
+            width: 100%;
+            padding: 1em;
+        }
+
+        nav.show {
+            display: flex;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 0;
+            font-size: 1.2em;
+        }
+
+        .right-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .search-bar {
+            margin-right:100px;
+            padding: 4px;
+            border-radius: 5px;
+            border: 1px solid #333;
+        }
+
+ /* Container for the Reels */
+        .reels-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* 2 columns */
+            grid-gap: 20px; /* Gap between cards */
+            padding: 20px;
+        }
+
+        /* Card structure */
+        .card {
+            width: 100%;
+            margin: 0 auto;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        /* Reel video inside card */
+        .card video {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        /* Description inside the card */
+        .card-content {
+            padding: 15px;
+        }
+
+        .card-content h3 {
+            font-size: 18px;
+            margin: 0;
+            margin-bottom: 10px;
+        }
+
+        .card-content p {
+            font-size: 14px;
+            color: #555;
+        }
+
+        /* Play button in the middle of the video */
+        .play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 40px;
+            color: white;
+            display: none;
+        }
+
+        /* Show play button when hovered */
+        .card:hover .play-btn {
+            display: block;
+        }
+
+        /* Responsive: Full width on small screens */
+        @media (max-width: 768px) {
+            .reels-container {
+                grid-template-columns: 1fr; /* 1 column on smaller screens */
+            }
+        }
+
+.container {
+    display: flex; /* Menyusun lingkaran secara horizontal */
+    gap: 59px; /* Jarak antar lingkaran */
+}
+
+.link-lingkaran {
+    display: flex; /* Menggunakan Flexbox */
+    border: 2px solid #333;
+    justify-content: center; /* Mengatur posisi horizontal */
+    align-items: center; /* Mengatur posisi vertikal */
+    border-radius: 100%; /* Membuat bentuk lingkaran */
+    background-color:cornflowerblue ; /* Warna latar belakang */
+    padding: 10px; /* Ukuran lingkaran */
+}
+
+.link-lingkaran a {
+    color: black; /* Warna teks */
+    text-decoration: none; /* Menghilangkan garis bawah */
+    font-weight: bold; /* Membuat teks tebal */
+    font-size: 16px; /* Ukuran teks menjadi lebih besar */
+}
+
+.link-lingkaran:hover {
+    background:springgreen; /* Warna saat hover */
+}
+
+
+
+
+
+
+/* Toggle switch */
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .theme-toggle input {
+            position: relative;
+            width: 54px;
+            height: 27px;
+            -webkit-appearance: none;
+            background: #fff;
+            outline: none;
+            border-radius: 25px;
+            transition: background 0.3s;
+            cursor: pointer;
+        }
+        .theme-toggle input:checked {
+            background: black;
+        }
+        .theme-toggle input:before {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 21px;
+            border-radius: 50%;
+            border:2px solid #333;
+            background:linear-gradient(to right,black 50%,white 50%);
+            top: 1.5px;
+            left: 2px;
+            transition: 0.3s;
+        }
+        .theme-toggle input:checked:before {
+            transform: translateX(25px);
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="menu-icon" id="menuToggle">
+            &#9776; <!-- Ikon tiga garis -->
+        </div>
+        <nav id="menu">
+            <a href="index.html">Home</a>
+            <a href="#contac">Contact</a>
+            <a href="terbaru.html">Terbaru</a>
+            <a href="terlama.html">Terlama</a>
+            <a href="terpopuler.html">Terpopuler</a>
+        </nav>
+        <div class="right-header">
+           <div class="theme-toggle">
+            <input type="checkbox" id="theme-toggle">
+        </div>
+             <input type="text" id="searchInput" placeholder="Search..." class="search-bar">
+        </div>
+    </header>
+
+      <!-- Reels in Cards Container -->
+    <section class="reels-container">
+        <div class="card">
+            <video src="videos/reel1.mp4" muted></video>
+            <div class="play-btn">&#9658;</div> <!-- Play button -->
+            <div class="card-content">
+                <h3><font color="black">Reel Title 1</font></h3>
+                <p>This is a short description for the first reel video.</p>
+            </div>
+        </div>
+ <div class="card">
+            <video src="videos/reel1.mp4" muted></video>
+            <div class="play-btn">&#9658;</div> <!-- Play button -->
+            <div class="card-content">
+                <h3><font color="black">Reel Title 2</font></h3>
+                <p>This is a short description for the first reel video.</p>
+            </div>
+        </div>
+ <div class="card">
+            <video src="videos/reel1.mp4" muted></video>
+            <div class="play-btn">&#9658;</div> <!-- Play button -->
+            <div class="card-content">
+                <h3><font color="black">Reel Title 1</font></h3>
+                <p>This is a short description for the first reel video.</p>
+            </div>
+        </div>
+ <div class="card">
+            <video src="videos/reel1.mp4" muted></video>
+            <div class="play-btn">&#9658;</div> <!-- Play button -->
+            <div class="card-content">
+                <h3><font color="black">Reel Title 1</font></h3>
+                <p>This is a short description for the first reel video.</p>
+            </div>
+        </div>
+       
+    </section>
+
+ <div class="container">
+        <div class="link-lingkaran">
+            <a href="index.html">&#127968</a>
+        </div>
+        <div class="link-lingkaran">
+            <a href="1.html">>></a>
+        </div>
+        <div class="link-lingkaran">
+            <a href="2.html">>></a>
+        </div>
+        <div class="link-lingkaran">
+            <a href="3.html">>></a>
+        </div>
+    </div>
+
+    <script>
+  const cards = document.querySelectorAll('.card');
+
+        cards.forEach(card => {
+            card.addEventListener('click', () => {
+                const video = card.querySelector('video');
+                if (video.paused) {
+                    video.play();
+                    card.querySelector('.play-btn').style.display = 'none';
+                } else {
+                    video.pause();
+                    card.querySelector('.play-btn').style.display = 'block';
+                }
+            });
+        });
+
+
+
+    function filterContent() {
+            const query = document.querySelector('.search-bar input').value.toLowerCase();
+            const contents = document.querySelectorAll('.content');
+            contents.forEach(content => {
+                const title = content.querySelector('h2')?.textContent.toLowerCase();
+                if (title && title.includes(query)) {
+                    content.style.display = 'block';
+                } else {
+                    content.style.display = 'none';
+                }
+            });
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark');
+        }
+       // Mengubah tema saat toggle switch diaktifkan/dimatikan
+        window.onload = function() {
+            const themeToggle = document.getElementById('theme-toggle');
+            themeToggle.addEventListener('change', function() {
+                toggleTheme();
+            });
+        };
+
+        // Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const menu = document.getElementById('menu');
+        let isMenuOpen = false;
+
+        menuToggle.addEventListener('click', () => {
+            menu.classList.toggle('show');
+            isMenuOpen = !isMenuOpen;
+            menuToggle.innerHTML = isMenuOpen ? '&#10005;' : '&#9776;';
+        });
+
+        // Fungsi Pencarian
+        const searchInput = document.getElementById('searchInput');
+        const posts = document.querySelectorAll('.card');
+
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            posts.forEach(post => {
+                const title = post.querySelector('h3').textContent.toLowerCase();
+                const description = post.querySelector('p').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    post.style.display = 'block';
+                } else {
+                    post.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

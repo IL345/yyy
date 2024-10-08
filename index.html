@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InsightWave</title>
+    <style>
+        /* Styles untuk header, menu, dan tampilan */
+        body {
+         font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff; /* Warna terang */
+            color: #000000; /* Teks hitam */
+            transition: background-color 0.3s, color 0.3s;
+        }
+ body.dark {
+            background-color: black; /* Warna gelap */
+            color: #ffffff; /* Teks putih */
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+            padding: 7px;
+            color: black;
+           position:sticky;
+            top:0;
+            z-index:1000;
+            box-shadow:0 2px 5px rgba(0,0,0,0.9);
+        }
+        
+
+        .menu-icon {
+            cursor: pointer;
+            font-size: 1.5em;
+            color: #333;
+            display: flex;
+            align-items: center;
+        }
+
+        nav.menu {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 60px;
+            left: 0;
+            background-color: #333;
+            width: 100%;
+            padding: 1em;
+        }
+
+        nav.menu.show {
+            display: flex;
+        }
+
+        nav.menu ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        nav.menu ul li {
+            padding: 10px 0;
+        }
+
+        nav.menu ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+
+        .right-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-bar {
+            margin-right: 100px;
+        }
+        .search-bar input {
+            width: 30%;
+            padding: 5px;
+            border-radius:5px;
+            border:2px solid #333;
+            font-size: 16px;
+        }
+
+        .posts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 0px;
+        }
+
+        .card {
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            overflow:hidden ;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+        }
+
+        .card-content {
+            padding: 10px;
+        }
+
+
+.login-button {
+    color: #fff;
+    text-decoration: none;
+    background-color: #f0094a;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    padding: 8px 20px;
+    border-radius: 5px;
+}
+
+
+.login {
+    margin-left: auto;
+}
+button {
+    padding: 5px;
+    border: none;
+    background-color: red;
+    color: white;
+    border-radius: 0 3px 3px 0;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #666;
+}
+
+
+
+.info-perusahaan {
+    padding: 9px 0;
+    background: #fff;
+    text-align: center; 
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.contact-info p {
+    margin: 10px 0;
+}
+
+.info-perusahaan a {
+    display: inline-block;
+    margin-top: 10px;
+    color: #fff;
+    text-decoration: none;
+}
+
+ header2 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background:linear-gradient(to right,darkred 1%,red 100%);
+            padding: 0.1px;
+            color: black;
+            box-shadow:0 2px 5px rgba(0,0,0,0.9);
+        }
+
+   /* Toggle switch */
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .theme-toggle input {
+            position: relative;
+            width: 54px;
+            height: 27px;
+            -webkit-appearance: none;
+            background: #fff;
+            outline: none;
+            border-radius: 25px;
+            transition: background 0.3s;
+            cursor: pointer;
+        }
+        .theme-toggle input:checked {
+            background: black;
+        }
+        .theme-toggle input:before {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 21px;
+            border-radius: 50%;
+            border:2px solid #333;
+            background:linear-gradient(to right,black 50%,white 50%);
+            top: 1.5px;
+            left: 2px;
+            transition: 0.3s;
+        }
+        .theme-toggle input:checked:before {
+            transform: translateX(25px);
+        }
+
+
+
+           </style>
+</head>
+<body>
+    <!-- Header dengan Menu -->
+    <header>
+        <div class="menu-icon" id="menuToggle">
+            &#9776; <!-- Ikon tiga garis -->
+        </div>
+        <nav class="menu" id="menu">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#contac">Contact</a></li>
+                <li><a href="terbaru.html">Terbaru</a></li>
+                <li><a href="terlama.html">Terlama</a></li>
+                <li><a href="terpopuler.html">Terpopuler</a></li>
+            </ul>
+        </nav>
+        <div class="right-header">
+               <div class="theme-toggle">
+            <input type="checkbox" id="theme-toggle">
+        </div>
+            <input type="text" id="searchInput" placeholder="Search..." class="search-bar">
+        </div>
+    </header>
+   <header2>
+<p><img src="logo.png"align="left"style="width:190px;height:50px;margin-right:45px;"></p><p><a href=""><img src="friend.jpg"align="right"style="width:40px;height:40px;border-radius:50%;border:2px solid #333;"></a></p>
+  </header2><br><br>
+<h1>Temukan Beragam Konten Menarik Hanya Di INSIGHTWAVE</h1>
+<img src="hp.jpg"style="width:380px;height:250px;border-radius:5px;">
+    <!-- Postingan dengan Card -->
+    <section class="posts" id="postSection">
+        <div class="card">
+            <img src="main3.jpg" alt="Post Image">
+            <div class="card-content">
+           <div class="login">
+                <h2><font color="black">Terbaru</font></h2>
+                <p><font color="black">Klik Menu Di Bawah Ini Untuk Melihat</font></p>
+            <a href="terbaru.html" class="login-button">More</a>
+        </div>
+            </div>
+        </div>
+ <div class="card">
+            <img src="main2.jpg" alt="Post Image">
+            <div class="card-content">
+             <div class="login">
+                <h2><font color="black">Terlama</font></h2>
+                <p><font color="black">Klik Menu Di Bawah Ini Untuk Melihat</font></p>
+                  <a href="terlama.html" class="login-button">More</a>
+            </div>
+            </div>
+        </div>
+ <div class="card">
+            <img src="main1.jpg" alt="Post Image">
+            <div class="card-content">
+             <div class="login">
+                <h2><font color="black">Terpopuler</font></h2>
+                <p><font color="black">Klik Menu Di Bawah Ini Untuk Melihat</font></p>
+                <a href="terlama.html" class="login-button">More</a>
+            </div>
+            </div>
+        </div>
+
+  <section class="info-perusahaan">
+    <section id="contac" class="content" style="display: block;">
+        <div class="container">
+            <h4><font color="black"><img src="logo.png"align="center"style="width:190px;height:50px;margin-right:45px;"></h4>
+             <h4><p align="center">INSIGHTWAVE</p></h4>
+            <p>Selamat datang di insightwave!Di situs web ini,kami akan berbagi konten yang terkait dengan berita,konten hiburan,info menarik dan lain sebagainya.Jika Anda ingin info dan mendapatkan pengalaman menarik silahkan ikuti blog kami.</font></p>
+            <div class="contact-info">
+                <h4><font color="black">IKUTI KAMI</font></h4>
+                <a href=""><img src="fb.webp"style="width:30px;height:30px;border-radius:50%;"></a>
+                 <a href=""><img src="yt.png"style="width:30px;height:30px;border-radius:50%;"></a>
+                <a href=""><img src="ig.jpg"style="width:30px;height:30px;border-radius:50%;"></a>
+                   
+            </div>
+            <p align="right"><span style="font-size:40px;"><a href="#">&#128228</a></span></p>
+        </div>
+    </section>
+
+    <script>
+      function toggleTheme() {
+            document.body.classList.toggle('dark');
+        }
+       // Mengubah tema saat toggle switch diaktifkan/dimatikan
+        window.onload = function() {
+            const themeToggle = document.getElementById('theme-toggle');
+            themeToggle.addEventListener('change', function() {
+                toggleTheme();
+            });
+        };
+
+        // Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const menu = document.getElementById('menu');
+        let isMenuOpen = false;
+
+        menuToggle.addEventListener('click', () => {
+            menu.classList.toggle('show');
+            isMenuOpen = !isMenuOpen;
+            menuToggle.innerHTML = isMenuOpen ? '&#10005;' : '&#9776;'; // Mengubah ikon ke 'X' atau tiga garis
+        });
+
+        // Fungsi Pencarian
+        const searchInput = document.getElementById('searchInput');
+        const posts = document.querySelectorAll('.card');
+
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            posts.forEach(post => {
+                const title = post.querySelector('h2').textContent.toLowerCase();
+                const description = post.querySelector('p').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    post.style.display = 'block';
+                } else {
+                    post.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
